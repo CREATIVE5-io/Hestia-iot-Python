@@ -41,7 +41,7 @@ The script uses `config.ini` for settings. If it doesn't exist, defaults are cre
 
 ```
 [NTN.IOT]
-data_publish_interval = 60
+data_publish_interval = 300
 mobile_device = 1
 ```
 

@@ -27,7 +27,7 @@ g_args = parse_arguments()
 """ Cretet theading lock to control modbus port access """
 PORT_LOCK = threading.Lock()
 
-update_interval = 60
+update_interval = 300
 mobile_device = 1
 
 logger = modbus_tk.utils.create_logger('console')
@@ -114,7 +114,7 @@ class master_config_manager(config_manager):
         """Return the default configuration for config.ini."""
         return {
             'NTN.IOT': {
-                'data_publish_interval': '60',
+                'data_publish_interval': '300',
                 'mobile_device': '1',
             }
         }
