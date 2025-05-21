@@ -66,6 +66,56 @@ The script:
 - Checks for incoming data to update settings.
 - Logs status and errors.
 
+## Running as a Systemd Service
+
+To run `ntn_iot.py` as a background service on Linux using systemd:
+
+1. **Create the Service File**:
+   Create a file named `ntn-iot.service` in `/etc/systemd/system/`:
+   ```
+   sudo nano /etc/systemd/system/ntn-iot.service
+   ```
+   Add the following content:
+   ```
+   [Unit]
+   Description=C5 Hestia NTN-IOT service
+   After=network.target
+
+   [Service]
+   ExecStartPre=/bin/sleep 1m
+   ExecStart=/usr/bin/python3 /path/to/your-repo/ntn_iot.py --port /dev/ttyAMA0
+   WorkingDirectory=/path/to/your-repo
+   Restart=always
+   User=your-username
+   Environment=PYTHONUNBUFFERED=1
+
+   [Install]
+   WantedBy=multi-user.target
+   ```
+   Replace `/path/to/your-repo` with the full path to your repository and `your-username` with the user running the service.
+
+2. **Enable and Start the Service**:
+   ```
+   sudo systemctl enable ntn-iot.service
+   sudo systemctl start ntn-iot.service
+   ```
+
+3. **Check Service Status**:
+   ```
+   sudo systemctl status ntn-iot.service
+   ```
+
+4. **View Logs**:
+   ```
+   journalctl -u ntn-iot.service -f
+   ```
+
+5. **Stop or Restart the Service**:
+   ```
+   sudo systemctl stop ntn-iot.service
+   sudo systemctl restart ntn-iot.service
+   ```
+
 ## Modbus Registers
 
 - `0x0000`: Password

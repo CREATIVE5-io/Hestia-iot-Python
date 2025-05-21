@@ -1,0 +1,18 @@
+[Unit]
+Description=C5 Hestia NTN-IOT service
+After=network.target
+
+[Service]
+ExecStartPre=/bin/sleep 1m
+ExecStart=/usr/bin/python3 /home/c5/Hestia-iot-Python/ntn_iot.py --port /dev/ttyAMA0
+WorkingDirectory=/home/c5/Hestia-iot-Python
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=5
+User=c5
+Group=c5
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
